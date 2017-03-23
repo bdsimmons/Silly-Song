@@ -13,17 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var lyricsView: UITextView!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         nameField.delegate = self
         nameField.returnKeyType = UIReturnKeyType.done
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func reset(_ sender: Any) {
@@ -38,8 +31,6 @@ class ViewController: UIViewController {
             lyricsView.text = lyrics
         }
     }
-    
-
 }
 
 // MARK: - UITextFieldDelegate
@@ -54,8 +45,10 @@ extension ViewController: UITextFieldDelegate {
 func shortNameFromName(name: String) -> String {
     let lowercaseName = name.lowercased()
     let vowelSet = CharacterSet(charactersIn: "aeiou")
-    let range = lowercaseName.rangeOfCharacter(from: vowelSet)
-    return lowercaseName.substring(from: (range?.lowerBound)!)
+    if let range = lowercaseName.rangeOfCharacter(from: vowelSet) {
+        return lowercaseName.substring(from: range.lowerBound)
+    }
+    return lowercaseName
 }
 
 var bananaFanaTemplate = [
